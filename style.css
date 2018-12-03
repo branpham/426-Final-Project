@@ -1,0 +1,23 @@
+body {
+	background: skyblue;
+}
+
+#login_div {
+	border-top-style: double;
+    /*border-top-width: 10px;*/
+    border-top-color: lightgray;
+    border-radius: 10px;
+    background-color: white;
+    width: 300px;
+    padding: 1px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title {
+	font-size: 25px;	
+}
+
+.header-section {
+
+}
