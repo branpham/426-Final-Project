@@ -1,4 +1,5 @@
 var root_url = "http://comp426.cs.unc.edu:3001/";
+var selected_dept, selected_arri;
 
 $(document).ready(function(){
   // load AJAX log in information
@@ -22,20 +23,20 @@ $(document).ready(function(){
     }
   });
   
-$('#date').mouseenter(function(){
-    $('#date').datepicker();
-  });
-// var build_home_interface = function() {
-//     let body = $('body');
-// //poop
-//     body.empty();
-//     body.append('<nav class="navbar"><a class="navbar-item" id="home">Home</a><a class="navbar-item"></a></nav>');
-//     body.append("<section class='section header-section'><div class='container header-container'><h1 class='title'>Welcome to Flights API Project</h1><h1 class='subtitle'></h1>");
-//     body.append();
+	$('#date').mouseenter(function(){
+		$('#date').datepicker();
+	});
 
-
-// }
-
+	$('#choose_btn').on('click', () => {
+		if(selected_arri==selected_dept){
+			alert("cannot fly to same place idiot");
+		} else if(selected_dept!=null && selected_arri!=null){
+			console.log("chosen date valid");
+			build_flight_interface();
+		} else {
+			alert("chosen date invalid");
+		}
+	});
 
 	// departure
 	let deptairportcont = $('.collection.dept-with-header');
@@ -71,20 +72,35 @@ $('#date').mouseenter(function(){
 
 
 $(".collection.dept-with-header").on("click", ".collection-item", function(e){
-  var a= (e.target.textContent);
+  selected_dept = (e.target.textContent);
   var input= $('#filterInput');
-  input.val(a);
+  input.val(selected_dept);
 });
 
 $(".collection.arri-with-header").on("click", ".collection-item", function(e) {
-  var a= (e.target.textContent);
+  selected_arri= (e.target.textContent);
   var input= $('#filterInput2');
-  input.val(a);
+  input.val(selected_arri);
 });
 
+var build_flight_interface = function() {
+    let body = $('body');
+    //make container but make sure to close container and divs
+    body.append('<div class="container results-container"><div id="wrapper"></div><div id="under">');
+    let rlist = $('<ul class="collection results-collection">');
+    
 
 
-penis
+}
+
+// var queryFlights = function() {
+// 	let body = $('body');
+
+// 	if(selected_arri=null) AND (elected_dept!=null):
+// 		body.empty();
+	
+
+// };
 
 });
 
