@@ -70,8 +70,8 @@ $('#date').mouseenter(function(){
 
 
 
-$(".collection.dept-with-header").on("click", ".collection-item", (e) => {
-  alert(e.target);
+$(".collection.dept-with-header").on("click", ".collection-item", function(e){
+  alert(e.target.textContent);
 });
 
 $(".collection.arri-with-header").on("click", ".collection-item", function() {
