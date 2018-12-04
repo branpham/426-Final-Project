@@ -42,6 +42,7 @@ $(document).ready(function(){
 	let deptairportcont = $('.collection.dept-with-header');
 	let arriairportcont = $('.collection.arri-with-header');
 
+	//Populate Search with Aiports
 	$.ajax({
     type: 'GET',
     url: root_url + 'airports',
@@ -70,6 +71,70 @@ $(document).ready(function(){
 });
 
 
+var build_flight_interface = function() {
+    let body = $('body');
+    //make container but make sure to close container and divs
+    body.append('<div class="container results-container"><div id="wrapper"></div><div id="under">');
+    let rlist = $('<ul class="collection results-collection">');
+    
+    // let arri_id = get_airport_id(selected_arri);
+    let dept_id = get_airport_id(selected_dept).number;
+    console.log(root_url + 'flights?filter[departure_id]=' + dept_id);
+    console.log("final dept_id is: " + get_airport_id(selected_dept).number);
+
+    $.ajax({
+		type: 'GET',
+		// url: root_url + 'flights?filter[departure_id]=' + dept_id + '?filter[arrival_id]=' + arri_id,
+		url: root_url + 'flights?filter[departure_id]=' + dept_id,
+		xhrFields: {withCredentials: true},
+		success: (response) => {
+			// console.log(response[0]);
+			let departures = response;
+
+			console.log(departures);
+		}
+	});
+	//use LA departure and McCarran arrival
+	// get_airport_name(125570);
+	// get_airport_name(125718);
+	// http://comp426.cs.unc.edu:3001/flights?filter[departure_id]=134872
+
+}
+
+var get_airport_id = function(airportname) {
+	$.ajax({
+		type: 'GET',
+		url: root_url + 'airports?filter[name]=' + airportname,
+		xhrFields: {withCredentials: true},
+		success: (response) => {
+			// console.log(response[0]);
+			airport_id = response[0];
+			console.log(airport_id);
+			
+		}
+	});
+}
+var get_airport_name = function(some_airport_id) {
+	$.ajax({
+		type: 'GET',
+		url: root_url + 'airports/' + some_airport_id,
+		xhrFields: {withCredentials: true},
+		success: (response) => {
+			// console.log(response[0]);
+			let this_airport_name = response.name;
+			console.log(response);
+		}
+	});
+}
+// var queryFlights = function() {
+// 	let body = $('body');
+
+// 	if(selected_arri=null) AND (elected_dept!=null):
+// 		body.empty();
+	
+
+// };
+
 
 $(".collection.dept-with-header").on("click", ".collection-item", function(e){
   selected_dept = (e.target.textContent);
@@ -83,26 +148,8 @@ $(".collection.arri-with-header").on("click", ".collection-item", function(e) {
   input.val(selected_arri);
 });
 
-var build_flight_interface = function() {
-    let body = $('body');
-    //make container but make sure to close container and divs
-    body.append('<div class="container results-container"><div id="wrapper"></div><div id="under">');
-    let rlist = $('<ul class="collection results-collection">');
-    
-
-
-}
-
-// var queryFlights = function() {
-// 	let body = $('body');
-
-// 	if(selected_arri=null) AND (elected_dept!=null):
-// 		body.empty();
-	
-
-// };
-
 });
+
 
 
 
