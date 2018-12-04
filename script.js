@@ -71,17 +71,20 @@ $('#date').mouseenter(function(){
 
 
 $(".collection.dept-with-header").on("click", ".collection-item", function(e){
-  alert(e.target.textContent);
+  var a= (e.target.textContent);
+  var input= $('#filterInput');
+  input.val(a);
 });
 
-$(".collection.arri-with-header").on("click", ".collection-item", function() {
-  let w= 
- alert("poop");
+$(".collection.arri-with-header").on("click", ".collection-item", function(e) {
+  var a= (e.target.textContent);
+  var input= $('#filterInput2');
+  input.val(a);
 });
 
 
 
-
+penis
 
 });
 
