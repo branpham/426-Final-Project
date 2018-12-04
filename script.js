@@ -89,10 +89,24 @@ var build_flight_interface = function() {
     body.append('<div class="container results-container"><div id="wrapper"></div><div id="under">');
     let rlist = $('<ul class="collection results-collection">');
     
+    let arri_id = get_airport_id(selected_arri);
+    let dept_id = get_airport_id(selected_dept);
 
 
 }
 
+var get_airport_id = function(airportname) {
+	$.ajax({
+		type: 'GET',
+		url: root_url + 'airports?filter[name]=' + airportname,
+		xhrFields: {withCredentials: true},
+		success: (response) => {
+			// console.log(response[0]);
+			let airport_id = response[0].id;
+			console.log(airport_id);
+		}
+	});
+}
 // var queryFlights = function() {
 // 	let body = $('body');
 
