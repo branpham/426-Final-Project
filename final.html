@@ -7,7 +7,8 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="./script.js"></script>
 <link rel="stylesheet" type="text/css" href="./style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.css"> -->
 </head>
 
 <body>
@@ -24,45 +25,21 @@
     <h1 class="center-align">
       My Contacts
     </h1>
-    <input type="text" id="filterInput" placeholder="Search names...">
-    <ul id="names" class="collection with-header">
+    <div id="wrapper">
+    	<div id="left">
+    Departure: <input type="text" id="filterInput" placeholder="Search names...">
+    <ul id="names" class="collection dept-with-header">
+    	</ul>
+    </div>
+    	<div id="middle">
+    Arrival: <input type="text" id="filterInput" placeholder="Search names...">
+ 	<ul id="names" class="collection arri-with-header" class="left-align">
+    	</ul>
+    </div>
+    	<div id="right">
+    		Date: <input class="calendar" id='date' placeholder="Select date">
+	</div>
     
-      <li class="collection-item">
-        <a href="#">Abe</a>
-      </li>
-      <li class="collection-item">
-        <a href="#">Adam</a>
-      </li>
-      <li class="collection-item">
-        <a href="#">Alan</a>
-      </li>
-      <li class="collection-item">
-        <a href="#">Anna</a>
-      </li>
-      
-      <li class="collection-item">
-        <a href="#">Beth</a>
-      </li>
-      <li class="collection-item">
-        <a href="#">Bill</a>
-      </li>
-      <li class="collection-item">
-        <a href="#">Bob</a>
-      </li>
-      <li class="collection-item">
-        <a href="#">Brad</a>
-      </li>
-    
-      <li class="collection-item">
-        <a href="#">Carrie</a>
-      </li>
-      <li class="collection-item">
-        <a href="#">Cathy</a>
-      </li>
-      <li class="collection-item">
-        <a href="#">Courtney</a>
-      </li>
-    </ul>
   </div>
 
 <script src="filterlist.js"></script>

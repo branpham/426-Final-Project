@@ -34,3 +34,20 @@ section {
 	display:block;
 
 }
+
+#date{
+	width: 50%;
+}
+.collection {
+	height:250px;
+	overflow-y: scroll;
+}
+#wrapper {
+  display: flex;
+}
+#left {
+  flex: 0 0 33%;
+}
+#right {
+  flex: 0 1 33%;
+}

@@ -21,7 +21,10 @@ $(document).ready(function(){
       	console.log('POST to sessions was a success');
     }
   });
-
+  
+$('#date').mouseenter(function(){
+    $('#date').datepicker();
+  });
 // var build_home_interface = function() {
 //     let body = $('body');
 // //poop
@@ -34,8 +37,10 @@ $(document).ready(function(){
 // }
 
 
+	// departure
+	let deptairportcont = $('.collection.dept-with-header');
+	let arriairportcont = $('.collection.arri-with-header');
 
-	let flightcont = $('.collection.with-header');
 	$.ajax({
     type: 'GET',
     url: root_url + 'airports',
@@ -52,7 +57,9 @@ $(document).ready(function(){
     		console.log(airports[i].name);
     		let airport_name = airports[i].name;
     		console.log(airport_name);
-    		flightcont.append('<li class="collection-item"><a href="#">' + airport_name +'</a></li>');
+    		deptairportcont.append('<li class="collection-item"><a href="#">' + airport_name +'</a></li>');
+    		arriairportcont.append('<li class="collection-item"><a href="#">' + airport_name +'</a></li>');
+
     		
 	    	}
 	    }
