@@ -96,3 +96,27 @@ a {
   background-color: AliceBlue;
   font-size: 14px;
 }
+
+.navbar {
+  display:block;
+  min-width:140px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #fff;
+  background: #2f3036;
+  text-decoration: none;
+}
+
+
+/*Hover state for top level links*/
+.navbar:hover  {
+  background: #17182a;
+}
+
+.navbarunit{
+  display:inline-block;
+  float: left;
+  margin-right: 1px;
+}
