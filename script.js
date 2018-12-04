@@ -3,7 +3,7 @@ var root_url = "http://comp426.cs.unc.edu:3001/";
 $(document).ready(function(){
   // load AJAX log in information
   $('.collection.with-header').append('<li class="collection-item"><a href="#">test</a></li>');
-  // populateAirports();
+  
   console.log('Searching for airport data');
   $.ajax({
     type: 'POST',
@@ -16,7 +16,7 @@ $(document).ready(function(){
     xhrFields: {withCredentials: true},
     async: true,
     success: (response) => {
-    	build_home_interface();
+    	// build_home_interface();
     	
       	console.log('POST to sessions was a success');
     }
@@ -33,22 +33,34 @@ $(document).ready(function(){
 
 // }
 
-// var populateAirports = function() {
-// 	let flightcont = $('.collection.with-header');
-// 	$.ajax({
-//     type: 'GET',
-//     url: root_url + 'airports',
-//     xhrFields: {withCredentials: true},
-//     success: (response) => {
-//     	let airports = response;
-//     	console(response);
-//     	for (airport in airports){
-//     		let airport_name = airport.name;
-//     		flightcont.append('<li class="collection-item"><a href="#">' + airport_name +'</a></li>');
-//     		console.log(airport_name);
-//     	}
-//     }
-//   });
-// }
+
+
+	let flightcont = $('.collection.with-header');
+	$.ajax({
+    type: 'GET',
+    url: root_url + 'airports/',
+    xhrFields: {withCredentials: true},
+    success: (response) => {
+    	if(response!=null){
+    		console.log(response);
+    	let airports = response;
+    	console.log('airport data accessed');
+    	let testairport = airports[0];
+    	console.log(testairport);
+    	for (var i = 0; i < airports.length; i++){
+    		console.log(i);
+    		console.log(airports[i].name);
+    		let airport_name = airports[i].name;
+    		console.log(airport_name);
+    		flightcont.append('<li class="collection-item"><a href="#">' + airport_name +'</a></li>');
+    		
+	    	}
+	    }
+	}
+});
+
 
 });
+
+
+
