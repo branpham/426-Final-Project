@@ -63,8 +63,24 @@ $('#date').mouseenter(function(){
     		
 	    	}
 	    }
-	}
+  }
+  
+
 });
+
+
+
+$(".collection.dept-with-header").on("click", ".collection-item", (e) => {
+  alert(e.target);
+});
+
+$(".collection.arri-with-header").on("click", ".collection-item", function() {
+  let w= 
+ alert("poop");
+});
+
+
+
 
 
 });
