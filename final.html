@@ -4,20 +4,81 @@
 
 <title>Flight API Project</title>
 <script src="./script.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <link rel="stylesheet" type="text/css" href="./style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.css">
 </head>
 
 <body>
+	<section id="NavBar">
+		<div class="navbar">
+			<button class="navbarunit" id="function_btn">Some Function</button>
+			<button class="navbarunit" id="data_btn">Your Data</button>
+			<button class="navbarunit" id="login_btn">Log In</button>
+		</div>
+	</section>
+
 <h1>Flight API Project</h1>
-<h3> Please Log In </h3>
+<div class="container">
+    <h1 class="center-align">
+      My Contacts
+    </h1>
+    <input type="text" id="filterInput" placeholder="Search names...">
+    <ul id="names" class="collection with-header">
+    
+      <li class="collection-item">
+        <a href="#">Abe</a>
+      </li>
+      <li class="collection-item">
+        <a href="#">Adam</a>
+      </li>
+      <li class="collection-item">
+        <a href="#">Alan</a>
+      </li>
+      <li class="collection-item">
+        <a href="#">Anna</a>
+      </li>
+      
+      <li class="collection-item">
+        <a href="#">Beth</a>
+      </li>
+      <li class="collection-item">
+        <a href="#">Bill</a>
+      </li>
+      <li class="collection-item">
+        <a href="#">Bob</a>
+      </li>
+      <li class="collection-item">
+        <a href="#">Brad</a>
+      </li>
+    
+      <li class="collection-item">
+        <a href="#">Carrie</a>
+      </li>
+      <li class="collection-item">
+        <a href="#">Cathy</a>
+      </li>
+      <li class="collection-item">
+        <a href="#">Courtney</a>
+      </li>
+    </ul>
+  </div>
+
+<script src="filterlist.js"></script>
+
+
+
+
+<!-- <h3> Please Log In </h3>
 
 <div id="login_div">
   User: <input type="text" id="login_user"><br>
   Password: <input type="text" id="login_pass"><br>
   <button id="login_btn">Login</button>
 </div>
-<div id="mesg_div"></div>
+<div id="mesg_div"></div> -->
 
 
 
