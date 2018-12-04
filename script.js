@@ -9,8 +9,8 @@ $(document).ready(function(){
     type: 'POST',
     url: root_url + 'sessions/',
     data: { "user": {
-                    "username": 'b',
-                    "password": 'password'
+                    "username": 'KTS',
+                    "password": 'COMP426'
                     }
           },
     xhrFields: {withCredentials: true},
@@ -38,15 +38,15 @@ $(document).ready(function(){
 	let flightcont = $('.collection.with-header');
 	$.ajax({
     type: 'GET',
-    url: root_url + 'airports/',
+    url: root_url + 'airports',
     xhrFields: {withCredentials: true},
     success: (response) => {
     	if(response!=null){
-    		console.log(response);
     	let airports = response;
     	console.log('airport data accessed');
     	let testairport = airports[0];
     	console.log(testairport);
+    	console.log(airports);
     	for (var i = 0; i < airports.length; i++){
     		console.log(i);
     		console.log(airports[i].name);
