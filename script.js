@@ -5,6 +5,8 @@ $(document).ready(function(){
   // load AJAX log in information
   $('.collection.with-header').append('<li class="collection-item"><a href="#">test</a></li>');
   
+  build_navbar();
+  build_home_interface();
   console.log('Searching for airport data');
   $.ajax({
     type: 'POST',
@@ -70,6 +72,40 @@ $(document).ready(function(){
 
 });
 
+$(".collection.dept-with-header").on("click", ".collection-item", function(e){
+  selected_dept = (e.target.textContent);
+  var input= $('#filterInput');
+  input.val(selected_dept);
+});
+
+$(".collection.arri-with-header").on("click", ".collection-item", function(e) {
+  selected_arri= (e.target.textContent);
+  var input= $('#filterInput2');
+  input.val(selected_arri);
+
+  var keyword = e.target.textContent;
+  console.log(keyword);
+  
+
+        $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+        {
+            tags: keyword,
+            tagmode: "any",
+            format: "json"
+        },
+        function(data) {
+            var rnd = Math.floor(Math.random() * data.items.length);
+
+            var image_src = data.items[rnd]['media']['m'].replace("_m", "_b");
+
+            $('nav').css('background-image', "url('" + image_src + "')");
+
+    
+		});
+
+
+    });
+});
 
 var build_flight_interface = function() {
     let body = $('body');
@@ -126,6 +162,26 @@ var get_airport_name = function(some_airport_id) {
 		}
 	});
 }
+
+var change_pass_btn = function(){
+	let body = $('body')
+	body.empty();
+	build_navbar();
+}
+
+var build_navbar = function(){
+	let body = $('body')
+	body.append('<nav><li onClick="build_home_interface()"><a>Book Flight</a></li><li><a> Itinerary</a></li><li><a> Seat</a></li><li onClick="change_pass_btn()"><a> Change Password</a></li></nav>');
+		
+}
+var build_home_interface = function(){
+	let body = $('body')
+
+	body.empty();
+	build_navbar();
+	body.append('<h1>Flight API Project</h1><div class="container flight-container"><div id="wrapper"><div id="left">Departure: <input type="text" id="filterInput" placeholder="Search names..."><ul id="names" class="collection dept-with-header"></ul></div><div id="middle">Arrival: <input type="text" id="filterInput2"  placeholder="Search names..."><ul id="names2" class="collection arri-with-header" class="left-align"></ul></div><div id="right">Date: <input class="calendar" id="date" placeholder="Select date"></div></div><button onclick= " build_flight_interface"id="choose_btn">Choose Date</button><script src="filterlist.js"></script><script src="filterlist2.js"></script>');
+		
+}
 // var queryFlights = function() {
 // 	let body = $('body');
 
@@ -137,41 +193,8 @@ var get_airport_name = function(some_airport_id) {
 
 
 
-$(".collection.dept-with-header").on("click", ".collection-item", function(e){
-  selected_dept = (e.target.textContent);
-  var input= $('#filterInput');
-  input.val(selected_dept);
-});
-
-$(".collection.arri-with-header").on("click", ".collection-item", function(e) {
-  selected_arri= (e.target.textContent);
-  var input= $('#filterInput2');
-  input.val(selected_arri);
-
-  var keyword = e.target.textContent;
-  console.log(keyword);
-  
-
-        $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
-        {
-            tags: keyword,
-            tagmode: "any",
-            format: "json"
-        },
-        function(data) {
-            var rnd = Math.floor(Math.random() * data.items.length);
-
-            var image_src = data.items[rnd]['media']['m'].replace("_m", "_b");
-
-            $('nav').css('background-image', "url('" + image_src + "')");
-
-    
-});
 
 
-    });
-
-});
 
 
 
