@@ -10,8 +10,8 @@ $(document).ready(function(){
     type: 'POST',
     url: root_url + 'sessions/',
     data: { "user": {
-                    "username": 'KTS',
-                    "password": 'COMP426'
+                    "username": 'b',
+                    "password": 'password'
                     }
           },
     xhrFields: {withCredentials: true},
@@ -135,6 +135,9 @@ var get_airport_name = function(some_airport_id) {
 
 // };
 
+function myFunction() {
+	ddocument.getElementsByTagName('BODY')[0].innerHTML = '';
+  }
 
 $(".collection.dept-with-header").on("click", ".collection-item", function(e){
   selected_dept = (e.target.textContent);
