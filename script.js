@@ -146,7 +146,29 @@ $(".collection.arri-with-header").on("click", ".collection-item", function(e) {
   selected_arri= (e.target.textContent);
   var input= $('#filterInput2');
   input.val(selected_arri);
+
+  var keyword = e.target.textContent;
+  console.log(keyword);
+  
+
+        $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+        {
+            tags: keyword,
+            tagmode: "any",
+            format: "json"
+        },
+        function(data) {
+            var rnd = Math.floor(Math.random() * data.items.length);
+
+            var image_src = data.items[rnd]['media']['m'].replace("_m", "_b");
+
+            $('nav').css('background-image', "url('" + image_src + "')");
+
+    
 });
+
+
+    });
 
 });
 
