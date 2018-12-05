@@ -33,12 +33,12 @@ nav{
 	font-size: 25px;	
 }
 
-.header-section {
+/* .header-section {
 
 }
 section {
 
-}
+} */
 .navbar {
 	list-style-type: none;
     margin: 0;
@@ -50,9 +50,6 @@ section {
 
 }
 
-#date{
-	width: 20%;
-}
 .collection {
 	height:250px;
 	overflow-y: scroll;
