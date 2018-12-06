@@ -81,6 +81,12 @@ $(document).ready(() => {
 	   });
 });
 
+    $("body").on("click", "#2", function() {
+      let body = $('body');
+      body.empty();
+      body.append('<h1>Itinerary</h1>');
+      build_navbar();
+    });
 
 var build_flight_interface = function () {
 	let body = $('body');
@@ -286,13 +292,68 @@ $(".collection.arri-with-header").on("click", ".collection-item", function (e) {
 // 		body.empty();
 
 
+  var keyword = e.target.textContent;
+  console.log(keyword);
+
+  $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?", {
+      tags: keyword,
+      tagmode: "any",
+      format: "json"
+    },
+    function(data) {
+      var rnd = Math.floor(Math.random() * data.items.length);
+      var image_src = data.items[rnd]['media']['m'].replace("_m", "_b");
+      $('nav').css('background-image', "url('" + image_src + "')");
+    });
+});
+
+$(".collection.dept-with-header").on("click", ".collection-item", function(e) {
+  selected_dept = (e.target.textContent);
+  var input = $('#filterInput');
+  input.val(selected_dept);
+});
+
+var change_pass_btn = function() {
+  let body = $('body')
+  body.empty();
+  body.append('<h1>Change Password</h1>');
+  build_navbar();
+  body.append('<div id="Newpass_div">User: <input type="text" id="login_user" value="b"><br>Password: <input type="text" id="login_pass" value="Old Password"><br>New Password: <input type="text" id="login_Newpass" value="New password"><br></br><button id="newPass_btn"> Set New Password</button></div>');
+
+  $('#newPass_btn').on('click', () => {
+    let usern = $('#login_user').val();
+    let pass = $('#login_pass').val();
+    let newPass = $('#login_Newpass').val();
+
+    $.ajax(root_url + 'passwords', {
+      type: 'PUT',
+      dataType: 'json',
+      data: {
+        "user": {
+          "username": usern,
+          "old_password": pass,
+          "new_password": newPass
+        },
+      },
+      success: () => {
+        alert("nice")
+      },
+      error: () => {
+        alert("sad");
+      }
+    });
+  });
+}
+
+
+
+
+
+// var queryFlights = function() {
+// 	let body = $('body');
+
+// 	if(selected_arri=null) AND (elected_dept!=null):
+// 		body.empty();
+
+
 // };
-
-
-
-
-
-
-
-
-
