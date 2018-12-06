@@ -1,36 +1,43 @@
+@import url('https://fonts.googleapis.com/css?family=Cormorant');
+
 body {
-  background: skyblue;
+  background: #F0F7F4;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  font-family: 'Cormorant', serif;
 }
 
-nav{
-  width:1000px;
+h1 {
+  text-align: center;
+}
+
+nav {
+  width: 1000px;
   height: 350px;
   margin: auto;
   overflow: auto;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  border:2px solid white;
-  background-image: linear-gradient(rgb(255, 145, 0), rgb(255, 102, 0));
+  border: 2px solid #fdfdfd;
+  background: #70ABAF;
 }
 
 #login_div {
-	border-top-style: double;
-    /*border-top-width: 10px;*/
-    border-top-color: lightgray;
-    border-radius: 10px;
-    background-color: white;
-    width: 300px;
-    padding: 1px;
-    margin-left: auto;
-    margin-right: auto;
+  border-top-style: double;
+  /*border-top-width: 10px;*/
+  border-top-color: lightgray;
+  border-radius: 10px;
+  background-color: white;
+  width: 300px;
+  padding: 1px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .title {
-	font-size: 25px;	
+  font-size: 25px;
 }
 
 /* .header-section {
@@ -40,85 +47,91 @@ section {
 
 } */
 .navbar {
-	list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
+
 .navbarunit {
-	display:block;
-	height: 20px;
+  display: block;
 }
 
 .collection {
-	height:250px;
-	overflow-y: scroll;
+  height: 250px;
+  overflow-y: scroll;
 }
+
 #wrapper {
   display: flex;
 }
+
 #left {
   flex: 0 0 33%;
-  border:2px solid #fdfdfd;
-  background-image: linear-gradient(rgb(255, 145, 0), rgb(255, 102, 0));
-}
-#middle{
-  flex: 0 0 33%;
-  border:2px solid #fdfdfd;
-  background-image: linear-gradient(rgb(255, 145, 0), rgb(255, 102, 0));
-}
-#right {
-  flex: 0 1 33%;
-  border:2px solid #fdfdfd;
-  background-image: linear-gradient(rgb(255, 145, 0), rgb(255, 102, 0));
-  
+  border: 2px solid #fdfdfd;
+  background: #70ABAF;
 }
 
-#date{
+#middle {
+  flex: 0 0 33%;
+  border: 2px solid #fdfdfd;
+  background: #70ABAF;
+}
+
+#right {
+  flex: 0 1 33%;
+  border: 2px solid #fdfdfd;
+  background: #70ABAF;
+}
+
+#date {
   width: 200px;
   position: center;
 }
-#filterInput{
-  width: 200px;
-  
-}
-#filterInput2{
+
+#filterInput {
   width: 200px;
 }
 
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700);
+#filterInput2 {
+  width: 200px;
+}
+
+#choose_btn {
+  float: left;
+}
 
 /* General Buttons */
-body ul { list-style-type: none }
+body ul {
+  list-style-type: none
+}
+
 body ul a {
   list-style-type: none;
   width: full;
   height: 26px;
-  background: linear-gradient(to bottom, #7eb8d3 0%,#1274a8 100%); /* W3C */
+  background: #99E1D9;
+  /* W3C */
   border: none;
   border-radius: 5px;
   position: relative;
   border-bottom: 1px solid #f5f5f5;
   color: #fbfbfb;
   font-weight: 600;
-  font-family: 'Open Sans', sans-serif;
-  text-shadow: 1px 1px 1px rgba(0,0,0,.4);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, .4);
   font-size: 15px;
   text-align: center;
   text-indent: 1px;
   cursor: pointer;
   top: 10px;
-
-/* Just for presentation */  
+  /* Just for presentation */
   display: block;
   margin: 0 auto;
   margin-bottom: 10px;
-  margin-right:15px;
-  margin-left:0px;
+  margin-right: 15px;
+  margin-left: 0px;
+  color: #32292F;
 }
-
-
-
 
 .filterInput {
   height: 20px;
@@ -129,8 +142,18 @@ body ul a {
   font-size: 14px;
 }
 
+.container-flight-container {
+  text-align: center;
+}
 
-/* 
+input[type=text] {
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+/*
 .navbar {
   display:block;
   min-width:140px;
@@ -154,30 +177,27 @@ body ul a {
   float: left;
   margin-right: 1px;
 }  */
+nav ul {
+  list-style-type: none;
+}
 
-nav ul{
+nav li {
   list-style-type: none;
-}
-nav li{
-  list-style-type: none;
-  float:left;
-  width:250px;
-  height: 35px;
-  background-color:black;
-  opacity: 20%;
-  background:rgba(0,0,0, .8);
-  text-align:center;
-  font-size:20;
-}
-nav li a{
-  text-decoration:none;
-  color: white;
-  display:block;
-  padding: 8px 5px;
+  float: left;
+  width: 250px;
+  height: 18.5px;
+  background-color: black;
+  background: rgba(0, 0, 0, .8);
   text-align: center;
-  vertical-align: center
+  font-size: 20;
 }
 
-nav li a:hover{
+nav li a {
+  text-decoration: none;
+  color: white;
+  display: block;
+}
+
+nav li a:hover {
   background-color: gray;
 }
