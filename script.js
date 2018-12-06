@@ -19,7 +19,7 @@ $(document).ready(() => {
         build_home_interface();
       },
       error: () => {
-        alert("sad");
+        alert("User name already taken");
       }
     });
   });
@@ -149,6 +149,7 @@ var get_airport_name = function(some_airport_id) {
 var build_navbar = function() {
   let body = $('body')
   body.append('<nav><li id="1";><a>Book Flight</a></li><li id="2"><a> Itinerary</a></li><li id="3"><a> Seat</a></li><li  onClick="change_pass_btn()"><a> Change Password</a></li></nav>');
+  
 }
 
 
@@ -204,6 +205,8 @@ var build_home_interface = function() {
     }
   });
 
+  
+
   $(".collection.arri-with-header").on("click", ".collection-item", function(e) {
     selected_arri = (e.target.textContent);
     console.log(selected_arri);
@@ -221,6 +224,7 @@ var build_home_interface = function() {
         var rnd = Math.floor(Math.random() * data.items.length);
         var image_src = data.items[rnd]['media']['m'].replace("_m", "_b");
         $('nav').css('background-image', "url('" + image_src + "')");
+        
       });
   });
 
@@ -345,6 +349,10 @@ $(".collection.dept-with-header").on("click", ".collection-item", function(e) {
   var input = $('#filterInput');
   input.val(selected_dept);
 });
+
+
+
+
 
 // var queryFlights = function() {
 // 	let body = $('body');
