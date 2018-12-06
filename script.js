@@ -17,6 +17,8 @@ $(document).ready(() => {
       success: () => {
         build_navbar();
         build_home_interface();
+        filterInput();
+        filterInput2();
       },
       error: () => {
         alert("sad");
@@ -40,6 +42,9 @@ $(document).ready(() => {
       success: () => {
         build_navbar();
         build_home_interface();
+        filterNames();
+        filterNames2();
+
       },
       error: () => {
         alert('login error');
@@ -74,13 +79,14 @@ var build_flight_interface = function() {
 
   // let arri_id = get_airport_id(selected_arri);
   let dept_id = get_airport_id(selected_dept).number;
+  let arri_id = get_airport_id(selected_arri).number;
   console.log(root_url + 'flights?filter[departure_id]=' + dept_id);
   console.log("final dept_id is: " + get_airport_id(selected_dept).number);
 
   $.ajax({
     type: 'GET',
     // url: root_url + 'flights?filter[departure_id]=' + dept_id + '?filter[arrival_id]=' + arri_id,
-    url: root_url + 'flights?filter[departure_id]=' + dept_id,
+    url: root_url + 'flights?filter[departure_id]=' + dept_id, + '?filter[arrival_id]=' + arri_id,
     xhrFields: {
       withCredentials: true
     },
@@ -107,7 +113,7 @@ var get_airport_id = function(airportname) {
     },
     success: (response) => {
       // console.log(response[0]);
-      airport_id = response[0];
+      airport_id = response;
       console.log(airport_id);
     }
   });
@@ -141,7 +147,7 @@ var build_home_interface = function() {
   body.empty();
   body.append('<h1>Flight API Project</h1>');
   build_navbar();
-  body.append('<br><div class="container-flight-container"><div id="wrapper"><div id="left">Departure: <input type="text" id="filterInput" placeholder="Search names..."><ul id="names" class="collection dept-with-header"></ul></div><div id="middle">Arrival: <input type="text" id="filterInput2"  placeholder="Search names..."><ul id="names2" class="collection arri-with-header" class="left-align"></ul></div><div id="right">Date: <input class="calendar" id="date" placeholder="Select date"></div><button onclick= " build_flight_interface"id="choose_btn">Find Flights</button></div><script src="filterlist.js"></script><script src="filterlist2.js"></script>');
+  body.append('<br><div class="container-flight-container"><div id="wrapper"><div id="left">Departure: <input type="text" id="filterInput" placeholder="Search names..."><ul id="names" class="collection dept-with-header"></ul></div><div id="middle">Arrival: <input type="text" id="filterInput2"  placeholder="Search names..."><ul id="names" class="collection arri-with-header" class="left-align"></ul></div><div id="right">Date: <input class="calendar" id="date" placeholder="Select date"></div><button onclick= "build_flight_interface()" id="choose_btn">Find Flights</button></div>');
   $('#date').mouseenter(function() {
     $('#date').datepicker();
   });
@@ -272,6 +278,62 @@ var change_pass_btn = function() {
       }
     });
   });
+}
+
+
+
+function filterNames(){
+	 // Get input element
+let filterInput = document.getElementById('filterInput');
+// Add event listener
+filterInput.addEventListener('keyup', filterNames);
+
+  // Get value of input
+  let filterValue = document.getElementById('filterInput').value.toUpperCase();
+
+  // Get names ul
+  let ul = document.getElementById('names');
+  // Get lis from ul
+  let li = ul.querySelectorAll('li.collection-item');
+
+  // Loop through collection-item lis
+  for(let i = 0;i < li.length;i++){
+    let a = li[i].getElementsByTagName('a')[0];
+    // If matched
+    if(a.innerHTML.toUpperCase().indexOf(filterValue) > -1){
+      li[i].style.display = '';
+    } else {
+      li[i].style.display = 'none';
+    }
+  }
+
+}
+
+function filterNames2(){
+	 // Get input element
+let filterInput2 = document.getElementById('filterInput2');
+// Add event listener
+filterInput.addEventListener('keyup', filterNames2);
+
+  // Get value of input
+  let filterValue = document.getElementById('filterInput2').value.toUpperCase();
+
+  // Get names ul
+  let ul = document.getElementById('names');
+  // Get lis from ul
+  let li = ul.querySelectorAll('li.collection-item');
+
+  // Loop through collection-item lis
+  for(let i = 0;i < li.length;i++){
+    let a = li[i].getElementsByTagName('a')[0];
+    // If matched
+    if(a.innerHTML.toUpperCase().indexOf(filterValue) > -1){
+      li[i].style.display = '';
+    } else {
+      li[i].style.display = 'none';
+    }
+  }
+
 }
 
 
