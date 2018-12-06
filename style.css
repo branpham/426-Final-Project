@@ -13,15 +13,20 @@ h1 {
 }
 
 nav {
-  width: 1000px;
-  height: 350px;
+  width: 100%;
   margin: auto;
   overflow: auto;
+  border: 2px solid #fdfdfd;
+  
+}
+.flicker-api{
+  width: 95%;
+  height: 350px;
+  align-content: center;
+  background-image: #70ABAF;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  border: 2px solid #fdfdfd;
-  background: #70ABAF;
 }
 
 #login_div {
@@ -185,8 +190,8 @@ nav ul {
 nav li {
   list-style-type: none;
   float: left;
-  width: 250px;
-  height: 18.5px;
+  width: 25%;
+  height: 35px;
   background-color: black;
   background: rgba(0, 0, 0, .8);
   text-align: center;
@@ -197,6 +202,9 @@ nav li a {
   text-decoration: none;
   color: white;
   display: block;
+  padding: 8px 5px;
+  text-align: center;
+  vertical-align: center;
 }
 
 nav li a:hover {

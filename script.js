@@ -75,32 +75,35 @@ $(document).ready(() => {
 
 var build_flight_interface = function() {
   let body = $('body');
+
   body.empty();
   body.append('<h1>Available Flights</h1>');
   build_navbar();
   //make container but make sure to close container and divs
   body.append('<div class="container results-container"><div id="wrapper"></div><div id="under">');
-  let rlist = $('<ul class="collection results-collection">');
+  let rlist = $('<ul class="collection results-collection">Available Flights</ul>');
+  body.append(rlist);
 
-  // let arri_id = get_airport_id(selected_arri);
-  console.log('selected departure name is:' + selected_dept);
-  console.log(get_airport_id(selected_dept));
+  let arri_id = get_airport_id(selected_arri);
   let dept_id = get_airport_id(selected_dept);
   console.log(root_url + 'flights?filter[departure_id]=' + dept_id);
   console.log("final dept_id is: " + get_airport_id(selected_dept));
 
   $.ajax({
     type: 'GET',
-    // url: root_url + 'flights?filter[departure_id]=' + dept_id + '?filter[arrival_id]=' + arri_id,
-    url: root_url + 'flights?filter[departure_id]=' + dept_id,
+    url: root_url + 'flights?filter[departure_id]=' + dept_id + '?filter[arrival_id]=' + arri_id,
+    // url: root_url + 'flights?filter[departure_id]=' + dept_id,
     xhrFields: {
       withCredentials: true
     },
     success: (response) => {
       // console.log(response[0]);
       let departures = response;
-
-      console.log(departures);
+      for (var i = 0; i < departures.length; i++){
+      	console.log(departures[i].id);
+      	rlist.append('<li><a>'+departures[i].id+'</a></li>');
+      }   
+      console.log(root_url + 'flights?filter[departure_id]=' + dept_id + '?filter[arrival_id]=' + arri_id);
     }
   });
   //use LA departure and McCarran arrival
@@ -111,11 +114,13 @@ var build_flight_interface = function() {
 }
 
 function get_airport_id(airportname) {
-	var airport_id;
+	let airport_id = 0;
 	console.log('Getting Airport:' + airportname);
   $.ajax({
     type: 'GET',
     url: root_url + 'airports?filter[name]=' + airportname,
+    global: false,
+    async: false,
     xhrFields: {
       withCredentials: true
     },
@@ -123,12 +128,19 @@ function get_airport_id(airportname) {
       console.log(response[0]);
       airport_id = Number(response[0].id);
       console.log(airportname + 'airport id :' + airport_id);
-      if(144815==airport_id){
-      	console.log('yeah the airport should match up to a number value');
-      }
-      return 144815;
+	
     }
   });
+  console.log("result would be" + airport_id);
+  return airport_id;
+};
+
+function numcheck(num){
+	if(!Number.isNaN(num)){
+      	console.log('yeah the airport should match up to a number value');
+      } else {
+      	console.log('this airport id is not a number');
+      }
 }
 
 var get_airport_name = function(some_airport_id) {
@@ -158,7 +170,7 @@ var build_home_interface = function() {
   body.empty();
   body.append('<h1>Flight API Project</h1>');
   build_navbar();
-  body.append('<br><div class="container-flight-container"><div id="wrapper"><div id="left">Departure: <input type="text" id="filterInput" placeholder="Search names..."><button id="departureID">Search</button><ul id="names" class="collection dept-with-header"></ul></div><div id="middle">Arrival: <input type="text" id="filterInput2"  placeholder="Search names..."><button id="arrivalID">Search</button><ul id="names2" class="collection arri-with-header" class="left-align"></ul></div><div id="right">Date: <input class="calendar" id="date" placeholder="Select date"></div><button onclick= " build_flight_interface"id="choose_btn">Find Flights</button></div>');
+  body.append('<div class="flicker-api"></div><br><div class="container-flight-container"><div id="wrapper"><div id="left">Departure: <input type="text" id="filterInput" placeholder="Search names..."><button id="departureID">Search</button><ul id="names" class="collection dept-with-header"></ul></div><div id="middle">Arrival: <input type="text" id="filterInput2"  placeholder="Search names..."><button id="arrivalID">Search</button><ul id="names2" class="collection arri-with-header" class="left-align"></ul></div><div id="right">Date: <input class="calendar" id="date" placeholder="Select date"></div><button id="choose_btn">Find Flights</button></div>');
   $('#date').mouseenter(function() {
     $('#date').datepicker();
   });
@@ -193,10 +205,10 @@ var build_home_interface = function() {
         console.log(testairport);
         console.log(airports);
         for (var i = 0; i < airports.length; i++) {
-          console.log(i);
-          console.log(airports[i].name);
+          // console.log(i);
+          // console.log(airports[i].name);
           let airport_name = airports[i].name;
-          console.log(airport_name);
+          // console.log(airport_name);
           deptairportcont.append('<li class="collection-item"><a href="#">' + airport_name + '</a></li>');
           arriairportcont.append('<li class="collection-item"><a href="#">' + airport_name + '</a></li>');
         }
@@ -220,7 +232,7 @@ var build_home_interface = function() {
       function(data) {
         var rnd = Math.floor(Math.random() * data.items.length);
         var image_src = data.items[rnd]['media']['m'].replace("_m", "_b");
-        $('nav').css('background-image', "url('" + image_src + "')");
+        $('.flicker-api').css('background-image', "url('" + image_src + "')");
       });
   });
 
@@ -229,6 +241,8 @@ var build_home_interface = function() {
     var input = $('#filterInput');
     input.val(selected_dept);
   });
+
+
 
  // Get input element
     let filterInput = document.getElementById('filterInput');
