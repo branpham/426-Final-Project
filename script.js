@@ -63,11 +63,21 @@ $(document).ready(() => {
       body.append('<h1>Seat</h1>');
       build_navbar();
     });
+
+    $("body").on("click", "departureID", function() {
+      let body = $('body');
+      body.empty();
+      body.append('<h1>Seat</h1>');
+      build_navbar();
+    });
   });
 });
 
 var build_flight_interface = function() {
   let body = $('body');
+  body.empty();
+  body.append('<h1>Available Flights</h1>');
+  build_navbar();
   //make container but make sure to close container and divs
   body.append('<div class="container results-container"><div id="wrapper"></div><div id="under">');
   let rlist = $('<ul class="collection results-collection">');
@@ -130,7 +140,6 @@ var get_airport_name = function(some_airport_id) {
 
 var build_navbar = function() {
   let body = $('body')
-
   body.append('<nav><li id="1";><a>Book Flight</a></li><li id="2"><a> Itinerary</a></li><li id="3"><a> Seat</a></li><li  onClick="change_pass_btn()"><a> Change Password</a></li></nav>');
 }
 
@@ -141,7 +150,7 @@ var build_home_interface = function() {
   body.empty();
   body.append('<h1>Flight API Project</h1>');
   build_navbar();
-  body.append('<br><div class="container-flight-container"><div id="wrapper"><div id="left">Departure: <input type="text" id="filterInput" placeholder="Search names..."><ul id="names" class="collection dept-with-header"></ul></div><div id="middle">Arrival: <input type="text" id="filterInput2"  placeholder="Search names..."><ul id="names2" class="collection arri-with-header" class="left-align"></ul></div><div id="right">Date: <input class="calendar" id="date" placeholder="Select date"></div><button onclick= " build_flight_interface"id="choose_btn">Find Flights</button></div><script src="filterlist.js"></script><script src="filterlist2.js"></script>');
+  body.append('<br><div class="container-flight-container"><div id="wrapper"><div id="left">Departure: <input type="text" id="filterInput" placeholder="Search names..."><button id="departureID">Search</button><ul id="names" class="collection dept-with-header"></ul></div><div id="middle">Arrival: <input type="text" id="filterInput2"  placeholder="Search names..."><button id="arrivalID">Search</button><ul id="names2" class="collection arri-with-header" class="left-align"></ul></div><div id="right">Date: <input class="calendar" id="date" placeholder="Select date"></div><button onclick= " build_flight_interface"id="choose_btn">Find Flights</button></div><script src="filterlist.js"></script><script src="filterlist2.js"></script>');
   $('#date').mouseenter(function() {
     $('#date').datepicker();
   });
@@ -204,7 +213,6 @@ var build_home_interface = function() {
         var rnd = Math.floor(Math.random() * data.items.length);
         var image_src = data.items[rnd]['media']['m'].replace("_m", "_b");
         $('nav').css('background-image', "url('" + image_src + "')");
-
       });
   });
 
@@ -247,7 +255,7 @@ var change_pass_btn = function() {
   body.empty();
   body.append('<h1>Change Password</h1>');
   build_navbar();
-  body.append('<div id="Newpass_div">User: <input type="text" id="login_user" value="b"><br>Password: <input type="text" id="login_pass" value="Old Password"><br>New Password: <input type="text" id="login_Newpass" value="New password"><br></br><button id="newPass_btn"> Set New Password</button></div>');
+  body.append('<div id="Newpass_div">User: <input type="text" id="login_user" value="b"><br>Password: <input type="text" id="login_pass" placeholder="Old Password"><br>New Password: <input type="text" id="login_Newpass" placeholder="New Password"><br></br><button id="newPass_btn"> Set New Password</button></div>');
 
   $('#newPass_btn').on('click', () => {
     let usern = $('#login_user').val();
@@ -265,10 +273,10 @@ var change_pass_btn = function() {
         },
       },
       success: () => {
-        alert("nice")
+        alert("Successful Login")
       },
       error: () => {
-        alert("sad");
+        alert("Login Failed");
       }
     });
   });
