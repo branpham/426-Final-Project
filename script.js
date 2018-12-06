@@ -84,10 +84,15 @@ var build_flight_interface = function() {
   let rlist = $('<ul class="collection results-collection">Available Flights</ul>');
   body.append(rlist);
 
+<<<<<<< HEAD
   let arri_id = get_airport_id(selected_arri);
   let dept_id = get_airport_id(selected_dept);
+=======
+  // let arri_id = get_airport_id(selected_arri);
+  let dept_id = get_airport_id(selected_dept).number;
+>>>>>>> 5d9c43aaf832cd6c53e368b0af9f13b7a7df3ed9
   console.log(root_url + 'flights?filter[departure_id]=' + dept_id);
-  console.log("final dept_id is: " + get_airport_id(selected_dept));
+  console.log("final dept_id is: " + get_airport_id(selected_dept).number);
 
   $.ajax({
     type: 'GET',
@@ -113,9 +118,13 @@ var build_flight_interface = function() {
 
 }
 
+<<<<<<< HEAD
 function get_airport_id(airportname) {
 	let airport_id = 0;
 	console.log('Getting Airport:' + airportname);
+=======
+var get_airport_id = function(airportname) {
+>>>>>>> 5d9c43aaf832cd6c53e368b0af9f13b7a7df3ed9
   $.ajax({
     type: 'GET',
     url: root_url + 'airports?filter[name]=' + airportname,
@@ -125,10 +134,16 @@ function get_airport_id(airportname) {
       withCredentials: true
     },
     success: (response) => {
+<<<<<<< HEAD
       console.log(response[0]);
       airport_id = Number(response[0].id);
       console.log(airportname + 'airport id :' + airport_id);
 	
+=======
+      // console.log(response[0]);
+      airport_id = response[0];
+      console.log(airport_id);
+>>>>>>> 5d9c43aaf832cd6c53e368b0af9f13b7a7df3ed9
     }
   });
   console.log("result would be" + airport_id);
@@ -165,12 +180,16 @@ var build_navbar = function() {
 
 
 var build_home_interface = function() {
-  
+  var selected_dept, selected_arri;
   let body = $('body')
   body.empty();
   body.append('<h1>Flight API Project</h1>');
   build_navbar();
+<<<<<<< HEAD
   body.append('<div class="flicker-api"></div><br><div class="container-flight-container"><div id="wrapper"><div id="left">Departure: <input type="text" id="filterInput" placeholder="Search names..."><button id="departureID">Search</button><ul id="names" class="collection dept-with-header"></ul></div><div id="middle">Arrival: <input type="text" id="filterInput2"  placeholder="Search names..."><button id="arrivalID">Search</button><ul id="names2" class="collection arri-with-header" class="left-align"></ul></div><div id="right">Date: <input class="calendar" id="date" placeholder="Select date"></div><button id="choose_btn">Find Flights</button></div>');
+=======
+  body.append('<br><div class="container-flight-container"><div id="wrapper"><div id="left">Departure: <input type="text" id="filterInput" placeholder="Search names..."><button id="departureID">Search</button><ul id="names" class="collection dept-with-header"></ul></div><div id="middle">Arrival: <input type="text" id="filterInput2"  placeholder="Search names..."><button id="arrivalID">Search</button><ul id="names2" class="collection arri-with-header" class="left-align"></ul></div><div id="right">Date: <input class="calendar" id="date" placeholder="Select date"></div><button onclick= " build_flight_interface"id="choose_btn">Find Flights</button></div><script src="filterlist.js"></script><script src="filterlist2.js"></script>');
+>>>>>>> 5d9c43aaf832cd6c53e368b0af9f13b7a7df3ed9
   $('#date').mouseenter(function() {
     $('#date').datepicker();
   });
@@ -201,7 +220,7 @@ var build_home_interface = function() {
       if (response != null) {
         let airports = response;
         console.log('airport data accessed');
-        let testairport = airports;
+        let testairport = airports[0];
         console.log(testairport);
         console.log(airports);
         for (var i = 0; i < airports.length; i++) {
@@ -218,7 +237,7 @@ var build_home_interface = function() {
 
   $(".collection.arri-with-header").on("click", ".collection-item", function(e) {
     selected_arri = (e.target.textContent);
-    console.log(selected_arri);
+    console.log('penis');
     var input = $('#filterInput2');
     input.val(selected_arri);
     var keyword = e.target.textContent;
@@ -241,7 +260,9 @@ var build_home_interface = function() {
     var input = $('#filterInput');
     input.val(selected_dept);
   });
+}
 
+<<<<<<< HEAD
 
 
  // Get input element
@@ -293,11 +314,34 @@ var build_home_interface = function() {
           li[i].style.display = 'none';
         }
       }
+=======
+$(".collection.arri-with-header").on("click", ".collection-item", function(e) {
+  selected_arri = (e.target.textContent);
+  console.log('penis');
+  var input = $('#filterInput2');
+  input.val(selected_arri);
+>>>>>>> 5d9c43aaf832cd6c53e368b0af9f13b7a7df3ed9
 
-    }
+  var keyword = e.target.textContent;
+  console.log(keyword);
 
-}
+  $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?", {
+      tags: keyword,
+      tagmode: "any",
+      format: "json"
+    },
+    function(data) {
+      var rnd = Math.floor(Math.random() * data.items.length);
+      var image_src = data.items[rnd]['media']['m'].replace("_m", "_b");
+      $('nav').css('background-image', "url('" + image_src + "')");
+    });
+});
 
+$(".collection.dept-with-header").on("click", ".collection-item", function(e) {
+  selected_dept = (e.target.textContent);
+  var input = $('#filterInput');
+  input.val(selected_dept);
+});
 
 var change_pass_btn = function() {
   let body = $('body')
@@ -333,32 +377,7 @@ var change_pass_btn = function() {
 
 
 
-$(".collection.arri-with-header").on("click", ".collection-item", function(e) {
-  selected_arri = (e.target.textContent);
-  console.log('penis');
-  var input = $('#filterInput2');
-  input.val(selected_arri);
 
-  var keyword = e.target.textContent;
-  console.log(keyword);
-
-  $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?", {
-      tags: keyword,
-      tagmode: "any",
-      format: "json"
-    },
-    function(data) {
-      var rnd = Math.floor(Math.random() * data.items.length);
-      var image_src = data.items[rnd]['media']['m'].replace("_m", "_b");
-      $('nav').css('background-image', "url('" + image_src + "')");
-    });
-});
-
-$(".collection.dept-with-header").on("click", ".collection-item", function(e) {
-  selected_dept = (e.target.textContent);
-  var input = $('#filterInput');
-  input.val(selected_dept);
-});
 
 // var queryFlights = function() {
 // 	let body = $('body');
