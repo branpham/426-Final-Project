@@ -234,3 +234,23 @@ nav li a {
 nav li a:hover {
   background-color: gray;
 }
+
+#flights {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#flights td, #flights th {
+  border: 1px solid grey;
+  padding: 8px;
+}
+#flights tr:nth-child(odd){
+  background-color: lightgrey;
+}
+#flights th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: lightblue;
+  color: black;
+}
