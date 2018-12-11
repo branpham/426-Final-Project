@@ -75,14 +75,21 @@ $(document).ready(() => {
 
 var build_flight_interface = function() {
   let body = $('body');
-  var currentDate = $( ".selector" ).datepicker( "getDate" );
+  var currentDate = $( "#date" ).val();
+  let date = moment(currentDate).format('YYYY-MM-DD')
 
   body.empty();
   body.append('<h1>Available Flights</h1>');
   build_navbar();
   //make container but make sure to close container and divs
   body.append('<div class="container results-container"><div id="wrapper"></div><div id="under">');
-  let flightdetails = $('<table id="flights"><tr><th>Airline</th><th>Flight Number</th><th>Departure Time</th><th>Arrival Time</th></tr></table>');
+  let flightdetails = $(`<table id="flights"><tr>
+  <th onclick="w3.sortHTML('#flights', '.item', 'td:nth-child(1)')" style="cursor:pointer">Airline</th>
+  <th onclick="w3.sortHTML('#flights', '.item', 'td:nth-child(2)')" style="cursor:pointer">Flight Number</th>
+  <th onclick="w3.sortHTML('#flights', '.item', 'td:nth-child(3)')" style="cursor:pointer">Departure Time</th>
+  <th onclick="w3.sortHTML('#flights', '.item', 'td:nth-child(4)')" style="cursor:pointer">Arrival Time</th>
+  <th onclick="w3.sortHTML('#flights', '.item', 'td:nth-child(5)')" style="cursor:pointer">Date</th></tr></table>`);
+  $('#flight').append("<tbody id = 'tableBod'></tbody>");
   // let rlist = $('<ul class="collection results-collection">Available Flights</ul>');
   // body.append(rlist);
   body.append(flightdetails);
@@ -94,21 +101,46 @@ var build_flight_interface = function() {
 
   $.ajax({
     type: 'GET',
+    global: false,
     url: root_url + 'flights?filter[departure_id]=' + dept_id + '?filter[arrival_id]=' + arri_id,
     xhrFields: {
       withCredentials: true
     },
     success: (response) => {
       let resultflights = response;
+      let refinedflights = new Array();
+      console.log(resultflights[0].id)
       for (var i = 0; i < resultflights.length; i++){
-        console.log(resultflights[i].id);
-        instances = getInstance(resultflights[i].id)
-        for (var j = 0; j < instances.length; i++){
-          if(instances[j].date < currentDate){
-            flightdetails.append()
-          }
+
+        // console.log(resultflights[i].id);
+        instances = getInstance(resultflights[i].id,date)
+        if(instances.length != 0){
+          console.log('non empty instance :' + instances[0].flight_id)
+          refinedflights.push(getFlight(instances[0].flight_id))
+          console.log(refinedflights)
         }
-        flightdetails.append('<tr><td>'  +getAirline(resultflights[i].airline_id).name + '</td><td>' + resultflights[i].id + '</td><td>' + resultflights[i].departs_at + '</td><td>' + resultflights[i].arrives_at + '</td></tr>');
+        
+        // for (var j = 0; j < instances.length; i++){
+        //   console.log(instances[j])
+        //     refinedflights.push(instances[j].flight_id)
+        //     console.log('refinedflights:' + refinedflights[j])
+          
+        // }
+      }
+      
+      
+      for (var j = 0; j < refinedflights.length; j++){
+
+        // hour conversion
+      let dep_time = new Date(refinedflights[j].departs_at);
+      let conv_dep_time = moment(dep_time).format('HH:mm')
+      let arr_time = new Date(refinedflights[j].arrives_at);
+      let conv_arr_time = moment(arr_time).format('HH:mm')
+
+        
+      $('#flights').append('<tr><td>'  +getAirline(refinedflights[j].airline_id).name 
+      + '</td><td>' + refinedflights[j].id + '</td><td>' + conv_dep_time + '</td><td>' +
+       conv_arr_time + '</td><td>' + date + '</td></tr>');
         // rlist.append('<li><a>'+resultflights[i].id+'</a></li>');
       }   
       // console.log(root_url + 'flights?filter[departure_id]=' + dept_id + '?filter[arrival_id]=' + arri_id);
@@ -121,11 +153,30 @@ var build_flight_interface = function() {
 
 }
 
-function getInstance(flight_id){
+function getFlight(flight_id){
+  let thisflight;
+  $.ajax({
+    type: 'GET',
+    url: root_url + 'flights/' + flight_id,
+    global: false,
+    async: false,
+    xhrFields: {
+      withCredentials: true
+    },
+    success: (response) => {
+      thisflight = response;
+      // console.log( 'instance results would be :' + instance[0].flight_id.toString());
+      // console.log(root_url + 'instances?filter[date]=' + date + '&filter[flight_id]=' + flight_id)
+	    }
+  });
+  return thisflight;
+}
+
+function getInstance(flight_id, date){
   let instance;
   $.ajax({
     type: 'GET',
-    url: root_url + 'instances/?filter[flight_id]=' + flight_id,
+    url: root_url + 'instances?filter[date]=' + date + '&filter[flight_id]=' + flight_id,
     global: false,
     async: false,
     xhrFields: {
@@ -133,7 +184,8 @@ function getInstance(flight_id){
     },
     success: (response) => {
       instance = response;
-      console.log( 'instance results would be :' + instance);
+      // console.log( 'instance results would be :' + instance[0].flight_id.toString());
+      console.log(root_url + 'instances?filter[date]=' + date + '&filter[flight_id]=' + flight_id)
 	    }
   });
   return instance;
@@ -150,9 +202,9 @@ function getAirline(airline_id){
       withCredentials: true
     },
     success: (response) => {
-      console.log(response);
+      // console.log(response);
       airline = response;
-      console.log("airline name :" + airline.name.toString());
+      // console.log("airline name :" + airline.name.toString());
 	    }
   });
   return airline;
@@ -223,10 +275,12 @@ var build_home_interface = function() {
   $('#date').mouseenter(function() {
     $('#date').datepicker();
   });
-  var currentDate = $( ".selector" ).datepicker( "getDate" );
+ 
 
 
   $('#choose_btn').on('click', () => {
+    var currentDate = $( ".selector" ).datepicker( "getDate" );
+
     if (selected_arri == selected_dept) {
       alert("cannot fly to same place idiot");
     } else if (selected_dept != null && selected_arri != null) {
@@ -253,8 +307,8 @@ var build_home_interface = function() {
         let airports = response;
         console.log('airport data accessed');
         let testairport = airports;
-        console.log(testairport);
-        console.log(airports);
+        // console.log(testairport);
+        // console.log(airports);
         for (var i = 0; i < airports.length; i++) {
           // console.log(i);
           // console.log(airports[i].name);
