@@ -1,25 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Cormorant');
 
 body {
-  font-family: 'Cormorant', serif;
-}
-.img-bg{
-  min-height: 100%;
-  min-width: 100%;
-  width:100%;
-  height: auto;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: url(http://www.tokkoro.com/picsup/2938086-airplane-passenger-aircraft-aircraft-depth-of-field-bokeh-runway-blurred-sky-reflection-lights-japan-boeing-sunset___landscape-nature-wallpapers.jpg) 
-  no-repeat; 
+  background: #F0F7F4;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  font-family: 'Cormorant', serif;
 }
+
 h1 {
   text-align: center;
-  size: 20px;
 }
 
 nav{
@@ -27,14 +17,6 @@ nav{
   height: 350px;
   margin: auto;
   overflow: auto;
-  
-}
-
-.flicker-api{
-  width: 95%;
-  height: 350px;
-  align-content: center;
-  background-image: #70ABAF;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -42,30 +24,16 @@ nav{
   background-image: #70ABAF;
 }
 
-.login_div {
-  width: 280px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: black;
-  padding: 8px 0;
-  margin: 8px 0;
-  
-}
-
-.login_border {
-  width:400px;
-  height:150px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 10%;
-  border-style: solid;
-  border-width: 1;
-  border-spacing: 20px;
-  border-radius: 20px;
+#login_div {
+  border-top-style: double;
+  /*border-top-width: 10px;*/
+  border-top-color: lightgray;
+  border-radius: 10px;
+  background-color: white;
+  width: 300px;
+  padding: 1px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .title {
@@ -212,8 +180,8 @@ nav ul {
 nav li {
   list-style-type: none;
   float: left;
-  width: 25%;
-  height: 35px;
+  width: 250px;
+  height: 18.5px;
   background-color: black;
   background: rgba(0, 0, 0, .8);
   text-align: center;
@@ -224,31 +192,8 @@ nav li a {
   text-decoration: none;
   color: white;
   display: block;
-  padding: 8px 5px;
-  text-align: center;
-  vertical-align: center;
 }
 
 nav li a:hover {
   background-color: gray;
-}
-
-#flights {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-#flights td, #flights th {
-  border: 1px solid grey;
-  padding: 8px;
-}
-#flights tr:nth-child(odd){
-  background-color: lightgrey;
-}
-#flights th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: lightblue;
-  color: black;
 }
