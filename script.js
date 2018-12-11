@@ -126,32 +126,17 @@ var build_flight_interface = function() {
       let conv_dep_time = moment(dep_time).format('HH:mm')
       let arr_time = new Date(refinedflights[j].arrives_at);
       let conv_arr_time = moment(arr_time).format('HH:mm')
-      let airline = getAirline(refinedflights[j].airline_id)
-      let airlinename = airline.name
+      let airlinename = getAirline(refinedflights[j].airline_id).name
         
-      bookarguments = refinedflights[j].id + ',' + airline.id + ',' + conv_dep_time + ',' + conv_arr_time + ',' + date
-      console.log(bookarguments);
       $('#flights').append('<tr><td>'  + airlinename
       + '</td><td>' + refinedflights[j].id + '</td><td>' + conv_dep_time + '</td><td>' +
-       conv_arr_time + '</td><td>' + date + '</td><td onClick="book(\'' + refinedflights[j].id + ',' + airline.id + ',' + conv_dep_time + ',' + conv_arr_time + ',' + date + '\')"> Book this shit! </td></tr>');     
-      }   
+       conv_arr_time + '</td><td>' + date + '</td><td onClick="book(' + refinedflights[j].id + ')">Book this shit!</td></tr>');      }   
     }
   });
 }
 
-var book = function(flight_id, airline_id, arrivaltime, departtime, date){
+var book = function(flight_id){
   console.log('this shit is booked!:' + flight_id)
-  let dept_airport = getAirport(getFlight(flight_id).departure_id);
-  let arri_airport = getAirport(getFlight(flight_id).arrival_id);
-
-  flighttuple = `<tr>
-  <td>Not done yet</td>
-  <td>Departure:` + dept_airport.name + ` Time:` + departtime + `</td>
-  <td>Not done yet</td>
-  <td>Not done yet</td>
-  
-  </tr>`
-
 }
 
 var build_itinerary_interface = function(){
@@ -162,7 +147,7 @@ var build_itinerary_interface = function(){
   body.append('<h3>Your booked flights</h3>');
   body.append(itineraryTable);
 
-  itineraryTable =  $(`<table id="itinerary"><tr>
+  itineraryTable =  $(`<table id="flights"><tr>
   <th>Name</th>
   <th>Logistics</th>
   <th>Flight</th> 
@@ -173,8 +158,7 @@ var build_itinerary_interface = function(){
   let lastName;
   let date;
   let dept_time;
-  let arri_time;
-
+  
 
 }
 
@@ -235,23 +219,6 @@ function getAirline(airline_id){
   return airline;
 }
 
-
-function getAirport(paraairportid) {
-	let airport_id;
-  $.ajax({
-    type: 'GET',
-    url: root_url + 'airports/' + paraairportid,
-    global: false,
-    async: false,
-    xhrFields: {
-      withCredentials: true
-    },
-    success: (response) => {
-      airport_id = response;	
-    }
-  });
-  return airport_id;
-}; 
 
 function get_airport_id(airportname) {
 	let airport_id = 0;
@@ -442,7 +409,7 @@ var change_pass_btn = function() {
   body.empty();
   body.append('<h1>Change Password</h1>');
   build_navbar();
-  body.append('<div id="newpassbackground"><div id="Newpass_div">User: <input type="text" id="login_user" value="b"><br>Password: <input type="text" id="login_pass" placeholder="Old Password"><br>New Password: <input type="text" id="login_Newpass" placeholder="New Password"><br></br><button id="newPass_btn"> Set New Password</button></div></div>');
+  body.append('<div id="Newpass_div">User: <input type="text" id="login_user" value="b"><br>Password: <input type="text" id="login_pass" placeholder="Old Password"><br>New Password: <input type="text" id="login_Newpass" placeholder="New Password"><br></br><button id="newPass_btn"> Set New Password</button></div>');
 
   $('#newPass_btn').on('click', () => {
     let usern = $('#login_user').val();
