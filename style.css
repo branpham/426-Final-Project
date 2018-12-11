@@ -255,3 +255,31 @@ nav li a:hover {
   background-color: lightblue;
   color: black;
 }
+
+#Newpass_div{
+
+	
+  width: 280px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+  padding: 25px 0;
+  margin: 25px 0;
+  border-spacing: 25px;
+  border-style: solid;
+  border-radius: 5px;
+
+
+}
+
+#passbackground{
+	width: 100%;
+	height: 500px;
+	background-image: url(http://www.tokkoro.com/picsup/2938086-airplane-passenger-aircraft-aircraft-depth-of-field-bokeh-runway-blurred-sky-reflection-lights-japan-boeing-sunset___landscape-nature-wallpapers.jpg);
+	
+  	background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
