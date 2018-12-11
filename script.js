@@ -88,10 +88,10 @@ var build_flight_interface = function() {
   <th onclick="w3.sortHTML('#flights', '.item', 'td:nth-child(2)')" style="cursor:pointer">Flight Number</th>
   <th onclick="w3.sortHTML('#flights', '.item', 'td:nth-child(3)')" style="cursor:pointer">Departure Time</th>
   <th onclick="w3.sortHTML('#flights', '.item', 'td:nth-child(4)')" style="cursor:pointer">Arrival Time</th>
-  <th onclick="w3.sortHTML('#flights', '.item', 'td:nth-child(5)')" style="cursor:pointer">Date</th></tr></table>`);
+  <th onclick="w3.sortHTML('#flights', '.item', 'td:nth-child(5)')" style="cursor:pointer">Date</th>
+  <th onclick="w3.sortHTML('#flights', '.item', 'td:nth-child(6)')" style="cursor:pointer">Click to book!</th>
+  </tr></table>`);
   $('#flight').append("<tbody id = 'tableBod'></tbody>");
-  // let rlist = $('<ul class="collection results-collection">Available Flights</ul>');
-  // body.append(rlist);
   body.append(flightdetails);
 
   let arri_id = get_airport_id(selected_arri);
@@ -115,17 +115,10 @@ var build_flight_interface = function() {
         // console.log(resultflights[i].id);
         instances = getInstance(resultflights[i].id,date)
         if(instances.length != 0){
-          console.log('non empty instance :' + instances[0].flight_id)
+          // console.log('non empty instance :' + instances[0].flight_id)
           refinedflights.push(getFlight(instances[0].flight_id))
-          console.log(refinedflights)
+          // console.log(refinedflights)
         }
-        
-        // for (var j = 0; j < instances.length; i++){
-        //   console.log(instances[j])
-        //     refinedflights.push(instances[j].flight_id)
-        //     console.log('refinedflights:' + refinedflights[j])
-          
-        // }
       }
       
       
@@ -136,21 +129,17 @@ var build_flight_interface = function() {
       let conv_dep_time = moment(dep_time).format('HH:mm')
       let arr_time = new Date(refinedflights[j].arrives_at);
       let conv_arr_time = moment(arr_time).format('HH:mm')
-
+      let airlinename = getAirline(refinedflights[j].airline_id).name
         
-      $('#flights').append('<tr><td>'  +getAirline(refinedflights[j].airline_id).name 
+      $('#flights').append('<tr><td>'  + airlinename
       + '</td><td>' + refinedflights[j].id + '</td><td>' + conv_dep_time + '</td><td>' +
-       conv_arr_time + '</td><td>' + date + '</td></tr>');
-        // rlist.append('<li><a>'+resultflights[i].id+'</a></li>');
-      }   
-      // console.log(root_url + 'flights?filter[departure_id]=' + dept_id + '?filter[arrival_id]=' + arri_id);
+       conv_arr_time + '</td><td>' + date + '</td><td onClick="book(' + refinedflights[j].id + ')">Book this shit!</td></tr>');      }   
     }
   });
-  //use LA departure and McCarran arrival
-  // get_airport_name(125570);
-  // get_airport_name(125718);
-  // http://comp426.cs.unc.edu:3001/flights?filter[departure_id]=134872
+}
 
+var book = function(flight_id){
+  console.log('this shit is booked!:' + flight_id)
 }
 
 function getFlight(flight_id){
@@ -283,7 +272,7 @@ var build_home_interface = function() {
 
     if (selected_arri == selected_dept) {
       alert("cannot fly to same place idiot");
-    } else if (selected_dept != null && selected_arri != null) {
+    } else if (selected_dept != null && selected_arri != null && currentDate != null) {
       console.log("chosen date valid");
       build_flight_interface();
     } else {
