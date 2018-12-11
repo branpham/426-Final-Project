@@ -51,10 +51,7 @@ $(document).ready(() => {
     });
 
     $("body").on("click", "#2", function() {
-      let body = $('body');
-      body.empty();
-      body.append('<h1>Itinerary</h1>');
-      build_navbar();
+      build_itinerary_interface();
     });
 
     $("body").on("click", "#3", function() {
@@ -140,6 +137,29 @@ var build_flight_interface = function() {
 
 var book = function(flight_id){
   console.log('this shit is booked!:' + flight_id)
+}
+
+var build_itinerary_interface = function(){
+  let body = $('body');
+  body.empty();
+  body.append('<h1>Itinerary</h1>');
+  build_navbar();
+  body.append('<h3>Your booked flights</h3>');
+  body.append(itineraryTable);
+
+  itineraryTable =  $(`<table id="flights"><tr>
+  <th>Name</th>
+  <th>Logistics</th>
+  <th>Flight</th> 
+  <th>Conformation Number</th>
+  </tr></table>`);
+
+  let firstName;
+  let lastName;
+  let date;
+  let dept_time;
+  
+
 }
 
 function getFlight(flight_id){
@@ -254,8 +274,7 @@ var build_navbar = function() {
 }
 
 
-var build_home_interface = function() {
-  
+var build_home_interface = function() { 
   let body = $('body')
   body.empty();
   body.append('<h1>Flight API Project</h1>');
@@ -264,12 +283,9 @@ var build_home_interface = function() {
   $('#date').mouseenter(function() {
     $('#date').datepicker();
   });
- 
-
 
   $('#choose_btn').on('click', () => {
     var currentDate = $( ".selector" ).datepicker( "getDate" );
-
     if (selected_arri == selected_dept) {
       alert("cannot fly to same place idiot");
     } else if (selected_dept != null && selected_arri != null && currentDate != null) {
@@ -295,14 +311,8 @@ var build_home_interface = function() {
       if (response != null) {
         let airports = response;
         console.log('airport data accessed');
-        let testairport = airports;
-        // console.log(testairport);
-        // console.log(airports);
         for (var i = 0; i < airports.length; i++) {
-          // console.log(i);
-          // console.log(airports[i].name);
           let airport_name = airports[i].name;
-          // console.log(airport_name);
           deptairportcont.append('<li class="collection-item"><a href="#">' + airport_name + '</a></li>');
           arriairportcont.append('<li class="collection-item"><a href="#">' + airport_name + '</a></li>');
         }
@@ -455,11 +465,3 @@ $(".collection.dept-with-header").on("click", ".collection-item", function(e) {
   input.val(selected_dept);
 });
 
-// var queryFlights = function() {
-// 	let body = $('body');
-
-// 	if(selected_arri=null) AND (elected_dept!=null):
-// 		body.empty();
-
-
-// };
