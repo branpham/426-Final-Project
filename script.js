@@ -1,10 +1,11 @@
 var root_url = "http://comp426.cs.unc.edu:3001/";
 var selected_dept, selected_arri;
+cnt = 0; 
 var itineraryTable =  $(`<table id="itinerary"><tr>
-  <th>Name</th>
-  <th>Logistics</th>
-  <th>Flight</th> 
-  <th>Confirmation Number</th>
+  <th onclick="sortTable(6)" style="cursor:pointer">Name</th>
+  <th onclick="sortTable(7)" style="cursor:pointer">Logistics</th>
+  <th onclick="sortTable(8)" style="cursor:pointer">Flight</th>
+  <th onclick="sortTable(9)" style="cursor:pointer">Confirmation Number</th>
   </tr></table>`);
 
 $(document).ready(() => {
@@ -90,7 +91,7 @@ var build_flight_interface = function() {
   document.getElementById("departTitle").innerHTML = selected_dept;
   document.getElementById("arriTitle").innerHTML = selected_arri;
 
-  body.append('<div><input type="text" id="firstname" placeholder="First Name"><br><input type="text" id="lastname" placeholder="Last Name">')
+  body.append('<div><input type="text" id="firstname" value="Ketan " placeholder="First Name"><br><input type="text" id="lastname" value="Mayer-Patel" placeholder="Last Name">')
 
   //make container but make sure to close container and divs
   body.append('<div class="container results-container"><div id="wrapper"></div><div id="under">');
@@ -161,9 +162,13 @@ var build_flight_interface = function() {
 
 
 var book = function(flight_id, airline_id, arrivaltime, departtime, date, fname, lname, instance){
-  if(fname == null || lname == null){
+  let firstName = $('#firstname').val();
+  let lastName = $('#lastname').val();
+  
+  if(fname == undefined || lname == undefined){
     return alert('name not specificied');
   } 
+
   console.log('this shit is booked!:' + flight_id)
   let dept_airport = getAirport(getFlight(flight_id).departure_id);
   let arri_airport = getAirport(getFlight(flight_id).arrival_id);
@@ -172,23 +177,25 @@ var book = function(flight_id, airline_id, arrivaltime, departtime, date, fname,
   let thisinstance = getInstance(flight_id, date)
   let instanceid = getInstanceID(flight_id, date)
   let thisticket = getTicket(thisinstance.id)
-  postTicket(thisinstance.id, fname, lname);
+  console.log(fname +  lname)
+  // postTicket(instanceid, firstName, lastName);
 
   console.log('this ticket id is : '+ thisticket)
   console.log(thisinstance);
   console.log(instanceid)
   console.log(root_url + 'tickets?filter[instance_id]=' + instanceid)
 
-
+ 
+  
   flighttuple = `<tr>
-  <td>Name` + thisticket.first_name + ' ' + thisticket.last_name + `</td>
-  <td>Departure: ` + dept_airport.name + ` Departure Time: ` + departtime + '<br>' +
-  'Arrival: ' + arri_airport.name + ` Arrival Time: ` + arrivaltime + `</td>
+  <td>` + firstName + ' ' + lastName + `</td>
+  <td>Departure: ` + dept_airport.name + `<br> Departure Time: ` + departtime + 
+  '<br>Arrival: ' + arri_airport.name + `<br>Arrival Time: ` + arrivaltime + `</td>
   <td>` + 'Flight Number: ' + thisairline.name + ' ' + thisflight.number + `</td>
-  <td>Not done yet</td>
+  <td>` + conf[cnt]+ `</td>
 
   </tr>`
-
+  cnt += 1;
   build_itinerary_interface();
   $('#itinerary').append(flighttuple);
 }
@@ -207,27 +214,20 @@ var build_itinerary_interface = function(){
 }
 
 function postTicket(instance_id, fname, lname){
-  $.ajax({
-    type: 'PUT',
-    url: root_url + 'tickets',
-    global: false,
-    async: false,
-    dataType: 'json',
-      data: {
-        "ticket": {
-          "instance_id": instance_id,
-          "first_name": fname,
-          "last_name": lname,
-          "is_purchased": true
-        },
-      },
-    xhrFields: {
-      withCredentials: true
+  $.ajax(root_url + "tickets",
+  {
+    type: 'POST',
+    xhrFields: {withCredentials: true},
+    data: {
+      ticket: {
+        instance_id: instance_id,
+        first_name: fname,
+        last_name: lname
+      }
     },
     success: (response) => {
-      thisflight = response;
-   
-	    }
+       console.log('added ticket');
+      } 
   });
 
 }
@@ -416,7 +416,7 @@ var get_airport_name = function(some_airport_id) {
 
 var build_navbar = function() {
   let body = $('body')
-  body.append('<nav><li id="1";><a>Book Flight</a></li><li id="2"><a> Itinerary</a></li><li id="3"><a> Seat</a></li><li  onClick="change_pass_btn()"><a> Change Password</a></li></nav>');
+  body.append('<nav><li id="1";><a>Book Flight</a></li><li id="2"><a> Itinerary</a></li><li  onClick="change_pass_btn()"><a> Change Password</a></li></nav>');
 }
 
 
@@ -425,7 +425,7 @@ var build_home_interface = function() {
   body.empty();
   body.append('<h1>Flight API Project</h1>');
   build_navbar();
-  body.append('<div class="flicker-api"></div><br><div class="container-flight-container"><div id="wrapper"><div id="left">Departure: <input type="text" id="filterInput" placeholder="Search names..."><button id="departureID">Search</button><ul id="names" class="collection dept-with-header"></ul></div><div id="middle">Arrival: <input type="text" id="filterInput2"  placeholder="Search names..."><button id="arrivalID">Search</button><ul id="names2" class="collection arri-with-header" class="left-align"></ul></div><div id="right">Date: <input class="calendar" id="date" placeholder="Select date"></div><button id="choose_btn">Find Flights</button></div>');
+  body.append('<div class="flicker-api"></div><br><div class="container-flight-container"><div id="wrapper"><div id="left">Departure: <input type="text" id="filterInput" placeholder="Search names..."><ul id="names" class="collection dept-with-header"></ul></div><div id="middle">Arrival: <input type="text" id="filterInput2"  placeholder="Search names..."><ul id="names2" class="collection arri-with-header" class="left-align"></ul></div><div id="right">Date: <input class="calendar" id="date" placeholder="Select date"></div><button id="choose_btn">Find Flights</button></div>');
   $('#date').mouseenter(function() {
     $('#date').datepicker();
   });
@@ -464,6 +464,8 @@ var build_home_interface = function() {
       }
     }
   });
+
+  
 
   $(".collection.arri-with-header").on("click", ".collection-item", function(e) {
     selected_arri = (e.target.textContent);
@@ -609,6 +611,9 @@ $(".collection.dept-with-header").on("click", ".collection-item", function(e) {
   var input = $('#filterInput');
   input.val(selected_dept);
 });
+
+
+conf = new Array('C42JO', 'S42KO', 'Z20SM', 'Q43JO', 'S10JO', 'L20KD');
 
 function sortTable(n) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;

@@ -75,6 +75,10 @@ nav {
   font-size: 25px;
 }
 
+p{
+  text-decoration: underline;
+}
+
 /* .header-section {
 
 }
@@ -95,6 +99,14 @@ section {
 .collection {
   height: 250px;
   overflow-y: scroll;
+}
+
+.dTitle{
+  text-align: center;
+}
+
+.aTitle{
+  text-align: center;
 }
 
 #wrapper {
@@ -222,7 +234,7 @@ nav ul {
 nav li {
   list-style-type: none;
   float: left;
-  width: 25%;
+  width: 33.33333333%;
   height: 35px;
   background-color: black;
   background: rgba(0, 0, 0, .8);
@@ -252,8 +264,13 @@ nav li a:hover {
   border: 1px solid grey;
   padding: 8px;
 }
-#flights tr:nth-child(odd){
+#flights tr:first-child{
+  background-color: lightblue;
+}
+
+#flights tr:nth-child(even) {
   background-color: lightgrey;
+
 }
 
 #itinerary th {
@@ -268,13 +285,11 @@ nav li a:hover {
   width: 100%;
 }
 
-#itinerary td, #flights th {
+#itinerary td, #itinerary th {
   border: 1px solid grey;
   padding: 8px;
 }
-#itinerary tr:nth-child(odd){
-  background-color: lightgrey;
-}
+
 #itinerary th {
   padding-top: 12px;
   padding-bottom: 12px;
