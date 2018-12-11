@@ -126,17 +126,21 @@ var build_flight_interface = function() {
       let conv_dep_time = moment(dep_time).format('HH:mm')
       let arr_time = new Date(refinedflights[j].arrives_at);
       let conv_arr_time = moment(arr_time).format('HH:mm')
-      let airlinename = getAirline(refinedflights[j].airline_id).name
+      let airline = getAirline(refinedflights[j].airline_id)
+      let airlinename = airline.name
         
       $('#flights').append('<tr><td>'  + airlinename
       + '</td><td>' + refinedflights[j].id + '</td><td>' + conv_dep_time + '</td><td>' +
-       conv_arr_time + '</td><td>' + date + '</td><td onClick="book(' + refinedflights[j].id + ')">Book this shit!</td></tr>');      }   
+       conv_arr_time + '</td><td>' + date + '</td><td onClick="book(' + refinedflights[j].id + ',' + airline + ',' + conv_dep_time + ',' + conv_arr_time + ',' + date + ')">Book this shit!</td></tr>');      }   
     }
   });
 }
 
-var book = function(flight_id){
+var book = function(flight_id, airline, arrivaltime, departtime, date){
   console.log('this shit is booked!:' + flight_id)
+
+  flighttuple = ``
+
 }
 
 var build_itinerary_interface = function(){
@@ -147,7 +151,7 @@ var build_itinerary_interface = function(){
   body.append('<h3>Your booked flights</h3>');
   body.append(itineraryTable);
 
-  itineraryTable =  $(`<table id="flights"><tr>
+  itineraryTable =  $(`<table id="itinerary"><tr>
   <th>Name</th>
   <th>Logistics</th>
   <th>Flight</th> 
@@ -158,7 +162,8 @@ var build_itinerary_interface = function(){
   let lastName;
   let date;
   let dept_time;
-  
+  let arri_time;
+
 
 }
 
